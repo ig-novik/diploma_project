@@ -1,0 +1,9 @@
+env/
+config.py
+.idea/
+webapp/__pycache__/
+__pycache__
+rez/
+*.db
+*.db*
+
