@@ -1,6 +1,6 @@
 from flask import Flask, render_template
 
-from webapp.model import db, News
+from webapp.model import db, Ads
 from webapp.weather import  weather_by_city
 
 
