@@ -16,9 +16,9 @@
         <div class="row">
             <div class="col-8">
                 <h2 style="padding-left: 25%">Новости</h2>
-                {% for news in news_list %}
-                <h3><a href="{{ news.url }}">{{ news.title }}</a></h3>
-                <p>{{ news.published.strftime('%d.%m.%Y %H:%M:%S') }}</p>
+                {% for ad in all_ads %}
+                <h3><a href="{{ ads.url }}">{{ ads.title }}</a></h3>
+                <p>{{ ads.published.strftime('%d.%m.%Y %H:%M:%S') }}</p>
                 <hr />
                 {% endfor %}
             </div>
