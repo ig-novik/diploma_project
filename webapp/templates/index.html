@@ -17,18 +17,18 @@
             <div class="col-8">
                 <h2 style="padding-left: 25%">Объявления</h2>
                 {% for ads in ads_list %}
-                <h3><a href="{{ ads[4] }}">{{ ads[2] }}</a></h3>
+                <h3><a href="{{ ads[3] }}">{{ ads[1] }}</a></h3>
                 <div class="item-photo " data-marker="item-photo">
-                    <img src="{{ ads[5] }}" />
+                    <img src="{{ ads[3] }}" />
                 </div>
-                <p>{{ ads[3][0:16] }}</p>
+                <p>{{ ads[4][0:16] }}</p>
                 <hr />
                 {% endfor %}
             </div>
             <div class="col-4>">
                 <h2>Прогноз погоды</h2>
                 {% if weather %}
-                    Погода: температура {{ weather.temp_C }}, ощущается как {{ weather.FeelsLikeC }}
+                    Погода в Москве: температура {{ weather.temp_C }}, ощущается как {{ weather.FeelsLikeC }}
                 {% else %}
                     Сервис погоды временно недоступен
                 {% endif %}
