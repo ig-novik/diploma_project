@@ -15,10 +15,13 @@
         <h1 style="text-align: center">{{ page_title }}</h1>
         <div class="row">
             <div class="col-8">
-                <h2 style="padding-left: 25%">Новости</h2>
-                {% for ad in all_ads %}
-                <h3><a href="{{ ads.url }}">{{ ads.title }}</a></h3>
-                <p>{{ ads.published.strftime('%d.%m.%Y %H:%M:%S') }}</p>
+                <h2 style="padding-left: 25%">Объявления</h2>
+                {% for ads in ads_list %}
+                <h3><a href="{{ ads[4] }}">{{ ads[2] }}</a></h3>
+                <div class="item-photo " data-marker="item-photo">
+                    <img src="{{ ads[5] }}" />
+                </div>
+                <p>{{ ads[3][0:16] }}</p>
                 <hr />
                 {% endfor %}
             </div>

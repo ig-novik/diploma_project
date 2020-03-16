@@ -1,5 +1,6 @@
 env/
-config.py
+webapp/config.py
+test.py
 .idea/
 webapp/__pycache__/
 __pycache__

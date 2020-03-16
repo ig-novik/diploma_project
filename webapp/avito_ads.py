@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 from datetime import datetime, timedelta
 from webapp.model import db, Ads, Img
 
+
 DATE_FORMAT = ' %d.%m.%Y %H:%M'
 today = datetime.now()
 yesterday = today - timedelta(days=1)
@@ -67,7 +68,7 @@ def save_images(alt, src, ad_id, published):
     print(data_exists)
 
     if not data_exists:
-        new_images = Img(alt=alt, src=src, ad_id=ad_id, published=published)
+        new_images = Img(alt=alt, src=src, ad_id=ad_id)
         db.session.add(new_images)
         db.session.commit()
         return new_images.id
@@ -88,14 +89,14 @@ def get_avito_ads():
             published = ad.find('div', class_='snippet-date-info').text
             print(str_to_date(published))
             published = datetime.strptime(str_to_date(published), DATE_FORMAT)
+            print(title, url, published)
             ad_id = save_ads(title, url, published)
             img_row = ad.select('img')
-            if ad_id:
-                for img_ in img_row:
-                    img_src = img_['src']
-                    img_alt = img_['alt']
-                    print(f' ads_id = {ad_id}')
-                    img_id = save_images(img_alt, img_src, ad_id, published)
+            for img_ in img_row:
+                img_src = img_['src']
+                img_alt = img_['alt']
+                print(f' ads_id = {ad_id}')
+                img_id = save_images(img_alt, img_src, ad_id, published)
             print(title)
             print(url)
             print(published)
