@@ -16,15 +16,15 @@
         <div class="row">
             <div class="col-8">
                 <h2 style="padding-left: 25%">Объявления</h2>
-                {% for ads in ads_list %}
+                {% for ad in ads_list %}
                 <!-- ads.url и ads.title - ссылка на объявление и его  заголовок  -->
-                <h3><a href="{{ ads[2] }}">{{ ads[1] }}</a></h3>
+                <h3><a href="{{ ad.url }}">{{ ad.title }}</a></h3>
                 <div class="item-photo " data-marker="item-photo">
                      <!-- img.src - ссылка на картинку -->
-                    <img src="{{ ads[3] }}" />
+                    <img src="{{ ad.first_image_src }}" />
                 </div>
                 <!-- ads.published - дата публикации -->
-                <p>{{ ads[4][0:16] }}</p>
+                <p>{{ ad.published }}</p>
                 <hr />
                 {% endfor %}
             </div>
