@@ -7,7 +7,13 @@ class Ads(db.Model):
     title = db.Column(db.String, nullable=False)
     url = db.Column(db.String, unique=True, nullable=False)
     published = db.Column(db.DateTime, nullable=False)
-    images = db.relationship('Img', backref=db.backref('ad', lazy='joined'), lazy='dynamic')
+    images = db.relationship("Img", backref="img_src")
+
+    @property
+    def first_image_src(self):
+        if self.images:
+            return self.images[0].src
+        return ""
 
     def __repr__(self):
         return 'Ads {} {}>'.format(self.title, self.url)
