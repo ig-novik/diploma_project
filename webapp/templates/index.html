@@ -25,7 +25,7 @@
                     {% endif %}
                 {% endwith %}
                 <h2 style="padding-left: 25%">Объявления</h2>
-                {% for ad in ads_list %}
+                {% for ad in ads_list.items %}
                 <!-- ads.url и ads.title - ссылка на объявление и его  заголовок  -->
                 <h3><a href="{{ ad.url }}">{{ ad.title }}</a></h3>
                 <div class="item-photo " data-marker="item-photo">
@@ -36,6 +36,11 @@
                 <p>{{ ad.published }}</p>
                 <hr />
                 {% endfor %}
+                <!-- экспериментируем с пагинацией -->
+                <h6>prev_num = {{ ads_list.prev_num }}</h6>
+                <h6>next_num = {{ ads_list.next_num }}</h6>
+                {% if ads_list.has_prev %}<a href="{{ url_for('index', page = ads_list.prev_num) }}"><< Назад</a>{% else %}<< Назад{% endif %} |
+                {% if ads_list.has_next %}<a href="{{ url_for('index', page = ads_list.next_num) }}">Вперёд >></a>{% else %}Вперёд >>{% endif %}
             </div>
             <div class="col-4>">
                 <h2>Прогноз погоды</h2>

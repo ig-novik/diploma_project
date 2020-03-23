@@ -1,10 +1,11 @@
-from flask import Flask, render_template, flash, redirect, url_for
+from flask import Flask, render_template, flash, redirect, url_for, request
 from flask_login import LoginManager, current_user, login_required, login_user, logout_user
 
 from webapp.forms import LoginForm
 from webapp.model import db, Ads, Img, User
 from webapp.weather import weather_by_city
-from webapp.config import SQLALCHEMY_DATABASE_URI
+from webapp.config import SQLALCHEMY_DATABASE_URI, POSTS_PER_PAGE
+
 
 
 def create_app():
@@ -20,11 +21,17 @@ def create_app():
     def load_user(user_id):
         return User.query.get(user_id)
 
-    @app.route('/')
-    def index():
+    @app.route('/', methods=['POST', 'GET'])
+    def index(page=1):
+        pg = request.args.get('page', '')
+        if pg:
+            page = int(pg)
+        else:
+            page = 1
+        print(f'page = {pg}')
         page_title = "Продажа пресмыкающихся"
         weather_ = weather_by_city(app.config["WEATHER_DEFAULT_CITY"])
-        ads_list = Ads.query.order_by(Ads.published.desc()).all()
+        ads_list = Ads.query.order_by(Ads.published.desc()).paginate(page, POSTS_PER_PAGE, False)
 
         return render_template('index.html', page_title=page_title, weather=weather_, ads_list=ads_list)
 
@@ -60,7 +67,7 @@ def create_app():
     @login_required
     def admin_index():
         if current_user.is_admin:
-            return  'Привет админ!'
+            return 'Привет админ!'
         else:
             return 'Ты не админ.'
 
