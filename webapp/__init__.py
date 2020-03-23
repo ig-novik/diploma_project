@@ -4,7 +4,7 @@ from flask_login import LoginManager, current_user, login_required, login_user, 
 from webapp.forms import LoginForm
 from webapp.model import db, Ads, Img, User
 from webapp.weather import weather_by_city
-from webapp.config import SQLALCHEMY_DATABASE_URI
+from webapp.config import SQLALCHEMY_DATABASE_URI, POSTS_PER_PAGE
 
 
 def create_app():
@@ -21,10 +21,10 @@ def create_app():
         return User.query.get(user_id)
 
     @app.route('/')
-    def index():
+    def index(page = 1):
         page_title = "Продажа пресмыкающихся"
         weather_ = weather_by_city(app.config["WEATHER_DEFAULT_CITY"])
-        ads_list = Ads.query.order_by(Ads.published.desc()).all()
+        ads_list = Ads.query.order_by(Ads.published.desc()).paginate(page, POSTS_PER_PAGE, False).items
 
         return render_template('index.html', page_title=page_title, weather=weather_, ads_list=ads_list)
 
@@ -60,7 +60,7 @@ def create_app():
     @login_required
     def admin_index():
         if current_user.is_admin:
-            return  'Привет админ!'
+            return 'Привет админ!'
         else:
             return 'Ты не админ.'
 
