@@ -29,7 +29,7 @@ def create_app():
         else:
             page = 1
         print(f'page = {pg}')
-        page_title = "Продажа пресмыкающихся"
+        page_title = "Продажа рептилий и террариумов в России"
         weather_ = weather_by_city(app.config["WEATHER_DEFAULT_CITY"])
         ads_list = Ads.query.order_by(Ads.published.desc()).paginate(page, POSTS_PER_PAGE, False)
 
