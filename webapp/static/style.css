@@ -1,1 +1,66 @@
-#wrapper { width: 70%; margin: 0 auto }
+#wrapper {
+    width: 70%;
+    margin: 0 auto
+}
+
+#header {
+    text-align: center;
+    min-height: 8vh;
+    background: url("/static/img/snake2.jpg") repeat;
+    margin: 10px 10px;
+    border-radius: 20px
+}
+
+.ads {
+    position: static;
+    display: block;
+    box-sizing: content-box;
+    display: block;
+    margin: 0 auto;
+    width: 70%;
+}
+
+.slogan {
+    color: tomato;
+    font-size: 250%;
+    text-shadow: #f9c9c9 1px 1px 0, #f9c9c9 2px 2px 0, #f9c9c9 3px 3px 0,
+        #f9c9c9 4px 4px 0, #f9c9c9 5px 5px 0;
+}
+
+.weather {
+    color: firebrick;
+    font-weight: 600;
+    font-size: 130%
+}
+
+.ad {
+    display: flex;
+    width: 80%;
+    margin: 5px auto;
+}
+.ad_photo {
+    width: auto;
+    min-width: 210px;
+    margin-right: 20px;
+
+}
+.ad_data  {
+    width: auto;
+
+}
+.ad_data h3 {
+    color: #009cf0;
+}
+.ad_photo img {
+    height: 156px;
+    width: auto
+}
+.pag_exp {
+    display: none;
+}
+.adr {
+    color: #8f8f8f;
+}
+.pagination {
+    text-align: center;
+}
