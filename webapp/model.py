@@ -1,6 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
+import datetime
 
 db = SQLAlchemy()
 
@@ -9,9 +10,10 @@ class Ads(db.Model):
     id = db.Column(db.Integer, primary_key=True, unique=True, autoincrement=True, nullable=False)
     title = db.Column(db.String, nullable=False)
     url = db.Column(db.String, unique=True, nullable=False)
-    published = db.Column(db.DateTime, nullable=False)
+    price = db.Column(db.Integer, default=0)
+    address = db.Column(db.String)
+    published = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now())
     images = db.relationship("Img", backref="img_src")
-    img_ad_id = None
 
     @property
     def first_image_src(self):

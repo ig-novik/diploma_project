@@ -1,4 +1,5 @@
 env/
+rez/
 webapp/config.py
 test.py
 html_parsing_tst.py

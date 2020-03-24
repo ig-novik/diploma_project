@@ -49,11 +49,11 @@ def get_html(url):
         return False
 
 
-def save_ads(title, url, published):
+def save_ads(title, url, price, address, published):
     data_exists = Ads.query.filter(Ads.url == url).count()
 
     if not data_exists:
-        new_ads = Ads(title=title, url=url, published=published)
+        new_ads = Ads(title=title, url=url, price=price, address=address, published=published)
         db.session.add(new_ads)
         db.session.commit()
         print(f'ad_id = {new_ads.id}')
@@ -62,7 +62,7 @@ def save_ads(title, url, published):
         return False
 
 
-def save_images(alt, src, ad_id, published):
+def save_images(alt, src, ad_id):
     data_exists = Img.query.filter(Img.src == src).count()
 
     if not data_exists:
@@ -92,14 +92,21 @@ def get_avito_ads():
                     title_row = ad.find('h3', class_='snippet-title')
                     title = title_row.text
                     url = 'https://www.avito.ru' + title_row.find('a')['href']
+                    price = ad.find('span', class_='snippet-price').text.strip()
+                    print(f' {title}, price = {price}')
+                    if price == 'Бесплатно' or price == 'Цена не указана':
+                        price = 0
+                    else:
+                        price = int(price[:-3].replace(' ', ''))
+                    address = ad.find('span', class_='item-address__string').text
                     published = ad.find('div', class_='snippet-date-info').text.strip()
                     published = datetime.strptime(str_to_date(published), DATE_FORMAT)
-                    ad_id = save_ads(title, url, published)
+                    ad_id = save_ads(title, url, price, address, published)
                     img_row = ad.select('img')
                     for img_ in img_row:
                         img_src = img_['src']
                         img_alt = img_['alt']
                         print(f' ads_id = {ad_id}')
-                        img_id = save_images(img_alt, img_src, ad_id, published)
+                        img_id = save_images(img_alt, img_src, ad_id)
     else:
         print('Avito - не грузится')
