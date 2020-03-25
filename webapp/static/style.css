@@ -6,7 +6,9 @@
 #header {
     text-align: center;
     min-height: 8vh;
-    background: url("/static/img/snake2.jpg") repeat;
+    background-image: url("/static/img/snake2.jpg");
+    background-position: left bottom; /* Положение фона */
+    background-repeat: repeat-x; /* Повторяем фон по горизонтали */
     margin: 10px 10px;
     border-radius: 20px
 }
