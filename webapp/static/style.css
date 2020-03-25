@@ -43,11 +43,12 @@
 .ad_photo {
     width: auto;
     min-width: 15vw;
-    margin: 0;
+    margin-right: 5%;
 
 }
 .ad_data  {
     width: auto;
+    min-width: 60%;
 
 }
 .ad_data h3 {
@@ -78,6 +79,13 @@
     .ad_photo img { width: 98%; height: auto; }
 
 }
+
+@media screen and (max-width: 1050px) {
+   #wrapper {     width: 98%; }
+   .ads { width: 100%; }
+   .ad_photo { margin-right: 10%; }
+}
+
 @media screen and (max-width: 800px) {
     .slogan { font-size: 200%; }
     #wrapper {     width: 98%; }
@@ -90,3 +98,4 @@
 
 
 }
+
