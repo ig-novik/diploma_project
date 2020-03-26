@@ -61,8 +61,8 @@
                     <h6>next_num = {{ ads_list.next_num }}</h6>
                 </div>
                 <div class="pagination">
-                    {% if ads_list.has_prev %}<a href="{{ url_for('index', page = ads_list.prev_num) }}">
-                        << Назад</a>{% else %}<< Назад{% endif %} | {% if ads_list.has_next %}<a href="{{ url_for('index', page = ads_list.next_num) }}">Вперёд >>
+                    {% if ads_list.has_prev %}<a href="{{ url_for('ads.index', page = ads_list.prev_num) }}">
+                        << Назад</a>{% else %}<< Назад{% endif %} | {% if ads_list.has_next %}<a href="{{ url_for('ads.index', page = ads_list.next_num) }}">Вперёд >>
                     </a>{% else %}Вперёд >>{% endif %}
                 </div>
             </div>

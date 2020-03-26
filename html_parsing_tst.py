@@ -1,8 +1,7 @@
 import requests
-import re
 from bs4 import BeautifulSoup
 from datetime import datetime, timedelta
-from webapp.model import db, Ads, Img
+from webapp.db import db, Ads, Img
 
 
 def get_html(url):

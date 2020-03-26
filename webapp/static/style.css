@@ -42,19 +42,20 @@
 }
 .ad_photo {
     width: auto;
-    min-width: 210px;
-    margin-right: 20px;
+    min-width: 15vw;
+    margin-right: 5%;
 
 }
 .ad_data  {
     width: auto;
+    min-width: 60%;
 
 }
 .ad_data h3 {
     color: #009cf0;
 }
 .ad_photo img {
-    height: 156px;
+    height: 17vh;
     width: auto
 }
 .pag_exp {
@@ -66,3 +67,35 @@
 .pagination {
     text-align: center;
 }
+
+@media screen and (orientation: portrait) {
+    .slogan { font-size: 200%; }
+    #wrapper {     width: 98%; }
+    h1 { font-size: 1.5em; }
+    h3 {margin: 0; }
+    .ads { width: 100%}
+    .ad { display: block; width: 100%; margin: 0; }
+    .weather { font-size: 100% }
+    .ad_photo img { width: 98%; height: auto; }
+
+}
+
+@media screen and (max-width: 1050px) {
+   #wrapper {     width: 98%; }
+   .ads { width: 100%; }
+   .ad_photo { margin-right: 10%; }
+}
+
+@media screen and (max-width: 800px) {
+    .slogan { font-size: 200%; }
+    #wrapper {     width: 98%; }
+    h1 { font-size: 1.5em; }
+    h3 {margin: 0; }
+    .ads { width: 100%}
+    .ad { display: block; width: 100%; margin: 0; }
+    .weather { font-size: 100% }
+    .ad_photo img { width: 98%; height: auto; }
+
+
+}
+

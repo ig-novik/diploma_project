@@ -1,4 +1,5 @@
 import os
+from datetime import timedelta
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -9,3 +10,5 @@ SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, '..', 'webapp.db'
 POSTS_PER_PAGE = 15
 
 SECRET_KEY = "cfasd893248^&%42342ASDCASCLd5%__fgs&54"
+
+REMEMBER_COOKIE_DURATION = timedelta(days=5)

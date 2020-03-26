@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 from datetime import datetime, timedelta
-from webapp.model import db, Ads, Img
+from webapp.db import db, Ads, Img
 
 
 DATE_FORMAT = '%d.%m.%Y %H:%M'
