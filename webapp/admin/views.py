@@ -1,13 +1,13 @@
-from flask import Blueprint
-from flask_login import current_user, login_required
+from flask import Blueprint, render_template, current_app
+from webapp.user.decorators import admin_required
+from webapp.weather import weather_by_city
 
 blueprint = Blueprint('admin', __name__, url_prefix='/admin')
 
 
 @blueprint.route('/')
-@login_required
+@admin_required
 def admin_index():
-    if current_user.is_admin:
-        return 'Привет админ!'
-    else:
-        return 'Ты не админ.'
+    title = "Панель управления"
+    weather_ = weather_by_city(current_app.config["WEATHER_DEFAULT_CITY"])
+    return render_template('admin/index.html', page_title=title, weather=weather_)
