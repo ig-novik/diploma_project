@@ -7,7 +7,6 @@ html_parsing_tst.py
 .vscode/
 webapp/__pycache__/
 __pycache__
-rez/
 *.db
 *.db*
 

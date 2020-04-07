@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- CSS -->
+    <link href="/static/style.css" rel="stylesheet" type="text/css">
+    <link href="/static/bootstrap.css" rel="stylesheet" type="text/css">
+    <title>{{ page_title }}</title>
+</head>
+
+<body>
+    <div id="wrapper">
+        <div id="header">
+            <div id="logo">
+                <h3 class="slogan">Гады России</h3>
+            </div>
+            <div class="weather">
+                {% if weather %}
+                <span class="weather">Погода в Москве: температура {{ weather.temp_C }}, ощущается как {{ weather.FeelsLikeC }}</span>
+                {% else %}
+                Сервис погоды временно недоступен
+                {% endif %}
+            </div>
+        </div>
+        {% include 'menu.html' %}
+        {% block content %}{% endblock %}
+        <div id="footer">
+
+        </div>
+    </div>
+</body>
+
+</html>

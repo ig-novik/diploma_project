@@ -18,4 +18,4 @@ def index(page=1):
     weather_ = weather_by_city(current_app.config["WEATHER_DEFAULT_CITY"])
     ads_list = Ads.query.order_by(Ads.published.desc()).paginate(page, current_app.config["POSTS_PER_PAGE"], False)
 
-    return render_template('index.html', page_title=page_title, weather=weather_, ads_list=ads_list)
+    return render_template('ads/index.html', page_title=page_title, weather=weather_, ads_list=ads_list)
