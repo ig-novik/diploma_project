@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, current_app
 from flask_login import LoginManager
 
 from webapp.user.forms import LoginForm
@@ -27,5 +27,9 @@ def create_app():
     @login_manager.user_loader
     def load_user(user_id):
         return User.query.get(user_id)
+
+    @app.context_processor
+    def my_weather_context_processor():
+        return dict(weather=weather_by_city(current_app.config["WEATHER_DEFAULT_CITY"]))
 
     return app
