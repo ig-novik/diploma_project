@@ -10,12 +10,14 @@ from webapp.user.views import blueprint as user_blueprint
 from webapp.ads.views import blueprint as ads_blueprint
 from webapp.weather import weather_by_city
 from webapp.config import SQLALCHEMY_DATABASE_URI, POSTS_PER_PAGE
+from flask_migrate import Migrate
 
 
 def create_app():
     app = Flask(__name__)
     app.config.from_pyfile("config.py")
     db.init_app(app)
+    migrate = Migrate(app, db)
 
     login_manager = LoginManager()
     login_manager.init_app(app)
