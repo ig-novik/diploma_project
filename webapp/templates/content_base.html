@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- CSS -->
+    <link href="/static/style.css" rel="stylesheet" type="text/css">
+    <link href="/static/bootstrap.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://static.avito.ru/s/cc/styles/edcf951a50e7eae10aeb.css"><script src="https://static.avito.ru/s/cc/bundles/a2c96b1ef941c769eabb.js" ></script><link rel="stylesheet" href="https://static.avito.ru/s/cc/styles/222a8e5e5e5ff1fce342.css"><script src="https://static.avito.ru/s/cc/bundles/75b338e9c6bc89904bd4.js" ></script><link rel="stylesheet" href="https://static.avito.ru/s/cc/styles/53d2be3c75f9cde14e94.css"><link rel="stylesheet" href="https://static.avito.ru/s/cc/styles/c2db2eef73d0e6f185a5.css"><link rel="stylesheet" href="https://static.avito.ru/s/cc/styles/da2fd69a8ee7bdc022bc.css"><link rel="stylesheet" href="https://static.avito.ru/s/cc/styles/12d40f81b7e415ffe00e.css"><script src="https://static.avito.ru/s/cc/bundles/9e9542cecd94a386ee34.js" ></script><link rel="stylesheet" href="https://static.avito.ru/s/cc/styles/7a1ee2a151af71ca5ee9.css"><link rel="stylesheet" href="https://static.avito.ru/s/cc/styles/c3298eb836d19670aaed.css"><link rel="stylesheet" href="https://static.avito.ru/s/cc/styles/ebcae0293be07746b0c1.css"><link rel="stylesheet" href="https://static.avito.ru/s/cc/styles/4fb9bfcdd09fb3239840.css"><script src="https://static.avito.ru/s/cc/bundles/d7f55faa688994a47fc3.js" ></script><link rel="stylesheet" href="https://static.avito.ru/s/cc/styles/afa90bb2c5962a4ab4f3.css"><script src="https://static.avito.ru/s/cc/bundles/dcd8418dafabfacff41b.js" ></script><link rel="stylesheet" href="https://static.avito.ru/s/cc/styles/dc05051745ea311491e1.css"><script src="https://static.avito.ru/s/cc/bundles/b780a7191e5fe3dfb181.js" ></script><link rel="stylesheet" href="https://static.avito.ru/s/cc/styles/488a82b3a59c38eec7cc.css"><script src="https://static.avito.ru/s/cc/bundles/6fdb6c413c829ab2b097.js" ></script><link rel="stylesheet" href="https://static.avito.ru/s/cc/styles/2e1abdbe74ad19ff2376.css"><script src="https://static.avito.ru/s/cc/bundles/b0f7ffaa99f5f63e8488.js" ></script><link rel="stylesheet" href="https://static.avito.ru/s/cc/styles/774b9d5ce18d91c4f92a.css"><script src="https://static.avito.ru/s/cc/bundles/9edb88abe646dafc179f.js" ></script><link rel="stylesheet" href="https://static.avito.ru/s/cc/styles/64b1e3df15b7dcb72bf0.css"><script src="https://static.avito.ru/s/cc/bundles/832a007ecfdbf5a9443f.js" ></script>
+    <title>{{ page_title }}</title>
+</head>
+
+<body>
+    <div id="wrapper">
+        <div id="header">
+            <div id="logo">
+                <h3 class="slogan">Гады России</h3>
+            </div>
+            <div class="weather">
+                {% if weather %}
+                <span class="weather">Погода в Москве: температура {{ weather.temp_C }}, ощущается как {{ weather.FeelsLikeC }}</span>
+                {% else %}
+                Сервис погоды временно недоступен
+                {% endif %}
+            </div>
+        </div>
+        {% include 'menu.html' %}
+        {% block content %}{% endblock %}
+        <div id="footer">
+
+        </div>
+    </div>
+</body>
+
+</html>
