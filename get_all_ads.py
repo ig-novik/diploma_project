@@ -1,6 +1,7 @@
 from webapp import create_app
-from webapp.avito_ads import get_avito_ads
+from webapp.ads.parsers import avito
 
 app = create_app()
 with app.app_context():
-    get_avito_ads()
+    # avito.get_ads_snippets()
+    avito.get_ads_content()
