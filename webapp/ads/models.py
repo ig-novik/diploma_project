@@ -9,6 +9,7 @@ class Ads(db.Model):
     price = db.Column(db.Integer, default=0)
     address = db.Column(db.String)
     published = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now())
+    text = db.Column(db.Text)
     images = db.relationship("Img", backref="img_src")
 
     @property

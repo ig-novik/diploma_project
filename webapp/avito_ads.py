@@ -4,13 +4,12 @@ from datetime import datetime, timedelta
 from webapp.db import db
 from webapp.ads.models import Ads, Img
 
-
 DATE_FORMAT = '%d.%m.%Y %H:%M'
 today = datetime.now()
 yesterday = today - timedelta(days=1)
 
 
-def str_to_date(str_):
+def date_parse(str_):
     m = {
         'января': '01',
         'февраля': '02',
@@ -27,22 +26,28 @@ def str_to_date(str_):
     }
     res = str_.replace('\n ', '')
     res = res.replace('\n', '')
-    if res.find('Сегодня') != -1:
-        res = res.replace('Сегодня', today.date().strftime('%d.%m.%Y'))
-    elif res.find('Вчера') != -1:
-        res = res.replace('Вчера', yesterday.date().strftime('%d.%m.%Y'))
-    else:
-        month_ = res.split()[1]
-        if month_ in m:
-            res = res.replace(' ' + month_ + ' ', '.' + m[month_] + '.' + str(today.year) + ' ')
+    if res:
+        if res.find('Сегодня') != -1:
+            res = res.replace('Сегодня', today.date().strftime('%d.%m.%Y'))
+        elif res.find('Вчера') != -1:
+            res = res.replace('Вчера', yesterday.date().strftime('%d.%m.%Y'))
         else:
-            res = str_
-    return res
+            month_ = res.split()[1]
+            if month_ in m:
+                res = res.replace(' ' + month_ + ' ', '.' + m[month_] + '.' + str(today.year) + ' ')
+            else:
+                res = str_
+        return datetime.strptime(res, DATE_FORMAT)
+    else:
+        return datetime.now() - timedelta(days=31)
 
 
 def get_html(url):
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:65.0) Gecko/20100101 Firefox/65.0'
+    }
     try:
-        result = requests.get(url)
+        result = requests.get(url, headers=headers)
         result.raise_for_status()
         return result.text
     except(requests.RequestException, ValueError):
@@ -76,7 +81,7 @@ def save_images(alt, src, ad_id):
 
 
 def get_avito_ads():
-    url_base = "https://www.avito.ru/rossiya/drugie_zhivotnye/reptilii-ASgBAgICAUSyA9AV?cd=1"
+    url_base = "https://www.avito.ru/rossiya/drugie_zhivotnye/reptilii-ASgBAgICAUSyA9AV?cd=1&s=104"
     html = get_html(url_base)
     if html:
         soup = BeautifulSoup(html, 'html.parser')
@@ -85,7 +90,7 @@ def get_avito_ads():
         str_num = int(pgn[len(pgn) - 2].text)
         # парсим поочерёдно все страницы пагинации
         for num in range(str_num):
-            html = get_html(url_base + '&p=' + str(num+1))
+            html = get_html(url_base + '&p=' + str(num + 1))
             if html:
                 soup = BeautifulSoup(html, 'html.parser')
                 all_ads = soup.select('.item')
@@ -100,8 +105,9 @@ def get_avito_ads():
                     else:
                         price = int(price[:-3].replace(' ', ''))
                     address = ad.find('span', class_='item-address__string').text
-                    published = ad.find('div', class_='snippet-date-info').text.strip()
-                    published = datetime.strptime(str_to_date(published), DATE_FORMAT)
+                    published = ad.find('div', class_='snippet-date-info')['data-tooltip']
+                    print(published)
+                    published = date_parse(published)
                     ad_id = save_ads(title, url, price, address, published)
                     img_row = ad.select('img')
                     for img_ in img_row:
