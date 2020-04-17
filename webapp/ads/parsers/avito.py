@@ -1,4 +1,4 @@
-#import platform
+# import platform
 
 from bs4 import BeautifulSoup
 
@@ -50,6 +50,8 @@ def get_ads_snippets():
 
 def get_ads_content():
     print("Вход в get_ads_content()")
+    cnt = 1
+    cnt_0 = 1
     ads_without_text = Ads.query.filter(Ads.text.is_(None)).all()
     for ad in ads_without_text:
         html = get_html(ad.url)
@@ -63,8 +65,16 @@ def get_ads_content():
                     ad.text = ads_text
                     db.session.add(ad)
                     db.session.commit()
+                if cnt > 15:
+                    return True
+                else:
+                    cnt += 1
             else:
                 print(f'Пустой контент, id = {ad.id}, url = {ad.url}')
                 print(article)
+                if cnt_0 > 9:
+                    return False
+                else:
+                    cnt_0 += 1
         else:
             print(f'не прошёл: id = {ad.id}, url = {ad.url}')
