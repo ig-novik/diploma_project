@@ -2,6 +2,7 @@ from functools import wraps
 
 from flask import current_app, flash, request, redirect, url_for
 from flask_login import config, current_user
+from webapp.utils import get_redirect_target
 
 
 def admin_required(func):
@@ -15,7 +16,7 @@ def admin_required(func):
             return current_app.login_manager.unauthorized()
         elif not current_user.is_admin:
             flash('Эта страница доступна только админам')
-            return redirect(url_for('ads.index'))
+            return redirect(get_redirect_target())
         return func(*args, **kwargs)
 
     return decorated_view

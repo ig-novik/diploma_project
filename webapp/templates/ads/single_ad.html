@@ -2,6 +2,33 @@
 
 {% block content %}
     <div class="item-view-content'">
+        {% include('messages.html') %}
         {{ text|safe }}
+        {% if ad.comments %}
+            <h3>Комментарии:</h3>
+            {% for comment in ad.comments %}
+            <div class="card">
+                <div class="card-body">
+                    <p class="card-text">{{ comment.text }}</p>
+                    <p class="card-text">
+                        <small>Опубликовано: {{ comment.created.strftime('%d.%m.%Y') }} |
+                            Автор: {{ comment.user.username }}</small>
+                    </p>
+                </div>
+            </div>
+            {% endfor %}
+        {% endif %}
+        {% if current_user.is_authenticated %}
+            <form action="{{ url_for('ads.add_comment') }}" method="POST">
+                {{ comment_form.hidden_tag() }}
+                <div class="form-group">
+                    {{ comment_form.comment_text.label }}
+                    {{ comment_form.comment_text() }}
+                </div>
+                {{ comment_form.submit() }}
+            </form>
+        {% else %}
+            <p><a href="{{ url_for('user.login', next=request.full_path) }}">Авторизуйтесь</a>, чтобы комментировать</p>
+        {% endif %}
     </div>
 {% endblock %}

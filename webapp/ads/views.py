@@ -30,8 +30,8 @@ def single_ad(ads_id):
 
     if not my_ad:
         abort(404)
-
-    return render_template('ads/single_ad.html', page_title=my_ad.title, text=my_ad.text)
+    comment_form = CommentForm(ad_id=my_ad.id)
+    return render_template('ads/single_ad.html', ad=my_ad,  comment_form=comment_form)
 
 
 @blueprint.route('/ads/comment', methods=['POST'])
@@ -39,7 +39,7 @@ def single_ad(ads_id):
 def add_comment():
     form = CommentForm()
     if form.validate_on_submit():
-        comment = Comment(text=form.comment_text.data, ad_id=form.ad_id.data, user_id=current_user.id)
+        comment = Comment(text=form.comment_text.data, ads_id=form.ad_id.data, user_id=current_user.id)
         db.session.add(comment)
         db.session.commit()
         flash('Комментарий успешно добавлен')
