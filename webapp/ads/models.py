@@ -1,5 +1,8 @@
+from sqlalchemy.orm import relationship
+
 from webapp.db import db
-import datetime
+
+from datetime import datetime
 
 
 class Ads(db.Model):
@@ -8,7 +11,7 @@ class Ads(db.Model):
     url = db.Column(db.String, unique=True, nullable=False)
     price = db.Column(db.Integer, default=0)
     address = db.Column(db.String)
-    published = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now())
+    published = db.Column(db.DateTime, nullable=False, default=datetime.now())
     text = db.Column(db.Text)
     images = db.relationship("Img", backref="img_src")
 
@@ -34,6 +37,9 @@ class Ads(db.Model):
                     res.append(im.src)
         return res
 
+    def comments_count(self):
+        return Comment.query.filter(Comment.ads_id == self.id).count()
+
     def __repr__(self):
         return 'Ads {} {}>'.format(self.title, self.url)
 
@@ -46,3 +52,24 @@ class Img(db.Model):
 
     def __repr__(self):
         return 'Image {} {}>'.format(self.alt, self.src)
+
+
+class Comment(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    text = db.Column(db.Text, nullable=False)
+    created = db.Column(db.DateTime, nullable=False, default=datetime.now())
+    ads_id = db.Column(
+        db.Integer,
+        db.ForeignKey('ads.id', ondelete='CASCADE'),
+        index=True
+    )
+    user_id = db.Column(
+        db.Integer,
+        db.ForeignKey('user.id', ondelete='CASCADE'),
+        index=True
+    )
+    ads = relationship('Ads', backref='comments')
+    user = relationship('User', backref='comments')
+
+    def __repr__(self):
+        return '<Comment {}>'.format(self.id)
