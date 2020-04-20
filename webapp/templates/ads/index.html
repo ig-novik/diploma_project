@@ -25,7 +25,7 @@
                         <span>{{'Цена: ' + ad.price|string  + ' ₽' }}</span><br>
                          <span class="adr">{{ ad.address}}</span><br>
                         <!-- ads.published - дата публикации -->
-                        <span>{{ ad.published.strftime("%d.%m.%Y %H:%M") }}</span>
+                        <span>{{ ad.published.strftime("%d.%m.%Y %H:%M") }} | Комментарии: {{ ad.comments_count() }}</span>
                     </div>
                 </div>
                 <hr />
