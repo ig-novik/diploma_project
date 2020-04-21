@@ -3,7 +3,7 @@
 {% block content %}
     <div class="item-view-content'">
         {% include('messages.html') %}
-        {{ text|safe }}
+        {{ ad.text|safe }}
         {% if ad.comments %}
             <h3>Комментарии:</h3>
             {% for comment in ad.comments %}
@@ -30,5 +30,5 @@
         {% else %}
             <p><a href="{{ url_for('user.login', next=request.full_path) }}">Авторизуйтесь</a>, чтобы комментировать</p>
         {% endif %}
-    </div>
+    </div><br><br>
 {% endblock %}
