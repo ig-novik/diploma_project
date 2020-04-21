@@ -58,7 +58,7 @@ def process_reg():
         db.session.add(new_user)
         db.session.commit()
         flash('Вы успешно зарегистрировались!')
-        return redirect(url_for('user.login', next=' /'))
+        return redirect(url_for('user.login', next='/'))
     else:
         for field, errors in form.errors.items():
             for error in errors:
