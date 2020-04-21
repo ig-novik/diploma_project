@@ -37,7 +37,7 @@ def process_login():
 def logout():
     logout_user()
     flash('Вы успешно разлогинились')
-    return redirect(url_for('ads.index'))
+    return redirect(get_redirect_target())
 
 
 @blueprint.route('/register')
@@ -58,7 +58,7 @@ def process_reg():
         db.session.add(new_user)
         db.session.commit()
         flash('Вы успешно зарегистрировались!')
-        return redirect(url_for('user.login'))
+        return redirect(url_for('user.login', next='/'))
     else:
         for field, errors in form.errors.items():
             for error in errors:
